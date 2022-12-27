@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+
+  shepherd:
+    image: mazzolino/shepherd:latest
+    environment:
+      REGISTRY_USER: ${VAR_REGISTRY_USER:injinity}
+      REGISTRY_PASSWORD: ${VAR_REGISTRY_PASSWORD} # MANDATORY VARIABLE !
+      REGISTRY_HOST: ${VAR_REGISTRY_HOST:remote.injinity.org}
+      SLEEP_TIME: '1m'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
